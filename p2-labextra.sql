@@ -232,9 +232,98 @@ FROM (
 ) AS resultF
 ORDER BY CodLocal;
 
+--QUERY4
+--e) Select R.* From Reclamo R Join Venta V on V.DNI Cliente = R.DNI Cliente;
+SELECT *
+FROM (
+         SELECT *
+         FROM (
+                  SELECT R.*
+                  FROM Reclamo_Local_1_4 R
+                  WHERE R.DNI_Cliente < 6666
+                  UNION ALL
+                  SELECT R.*
+                  FROM Reclamo_Local_5_8 R
+                  WHERE R.DNI_Cliente < 6666
+                  UNION ALL
+                  SELECT R.*
+                  FROM Reclamo_Local_9_12 R
+                  WHERE R.DNI_Cliente < 6666
+              ) AS reclamo1
+                  JOIN (
+             SELECT DNI_Cliente
+             FROM Venta_menor_2022 V
+             WHERE V.DNI_Cliente < 6666
+             UNION ALL
+             SELECT DNI_Cliente
+             FROM Venta_2022 V
+             WHERE V.DNI_Cliente < 6666
+             UNION ALL
+             SELECT DNI_Cliente
+             FROM Venta_2023 V
+             WHERE V.DNI_Cliente < 6666
+         ) AS venta1
+                       ON reclamo1.DNI_Cliente = venta1.DNI_Cliente
 
-		
+         UNION ALL
 
+         SELECT *
+         FROM (
+                  SELECT R.*
+                  FROM Reclamo_Local_1_4 R
+                  WHERE R.DNI_Cliente >= 6666 AND R.DNI_Cliente < 8333
+                  UNION ALL
+                  SELECT R.*
+                  FROM Reclamo_Local_5_8 R
+                  WHERE R.DNI_Cliente >= 6666 AND R.DNI_Cliente < 8333
+                  UNION ALL
+                  SELECT R.*
+                  FROM Reclamo_Local_9_12 R
+                  WHERE R.DNI_Cliente >= 6666 AND R.DNI_Cliente < 8333
+              ) AS reclamo2
+                  JOIN (
+             SELECT DNI_Cliente
+             FROM Venta_menor_2022 V
+             WHERE V.DNI_Cliente >= 6666 AND V.DNI_Cliente < 8333
+             UNION ALL
+             SELECT DNI_Cliente
+             FROM Venta_2022 V
+             WHERE V.DNI_Cliente >= 6666 AND V.DNI_Cliente < 8333
+             UNION ALL
+             SELECT DNI_Cliente
+             FROM Venta_2023 V
+             WHERE V.DNI_Cliente >= 6666 AND V.DNI_Cliente < 8333
+         ) AS venta2
+                       ON reclamo2.DNI_Cliente = venta2.DNI_Cliente
 
+         UNION ALL
 
-
+         SELECT *
+         FROM (
+                  SELECT R.*
+                  FROM Reclamo_Local_1_4 R
+                  WHERE R.DNI_Cliente >= 8333
+                  UNION ALL
+                  SELECT R.*
+                  FROM Reclamo_Local_5_8 R
+                  WHERE R.DNI_Cliente >= 8333
+                  UNION ALL
+                  SELECT R.*
+                  FROM Reclamo_Local_9_12 R
+                  WHERE R.DNI_Cliente >= 8333
+              ) AS reclamo3
+                  JOIN (
+             SELECT DNI_Cliente
+             FROM Venta_menor_2022 V
+             WHERE V.DNI_Cliente >= 8333
+             UNION ALL
+             SELECT DNI_Cliente
+             FROM Venta_2022 V
+             WHERE V.DNI_Cliente >= 8333
+             UNION ALL
+             SELECT DNI_Cliente
+             FROM Venta_2023 V
+             WHERE V.DNI_Cliente >= 8333
+         ) AS venta3
+                       ON reclamo3.DNI_Cliente = venta3.DNI_Cliente
+     )AS result_v;
