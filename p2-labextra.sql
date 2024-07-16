@@ -27,6 +27,16 @@ CREATE TABLE Reclamo_Local_1_4 PARTITION OF Reclamo FOR VALUES IN ('1', '2', '3'
 CREATE TABLE Reclamo_Local_5_8 PARTITION OF Reclamo FOR VALUES IN ('5', '6', '7', '8');
 CREATE TABLE Reclamo_Local_9_12 PARTITION OF Reclamo FOR VALUES IN ('9', '10', '11', '12');
 
+COPY Venta (IdVenta, DNI_Cliente, FechaVenta, CodLocal, ImporteTotal, IdEmpleado)
+    FROM '/var/lib/postgresql/data/data3/ventas.csv'
+    DELIMITER ','
+    CSV HEADER;
+
+COPY Reclamo (IdReclamo, DNI_Cliente, FechaReclamo, Codlocal, Descripcion, Estado)
+    FROM '/var/lib/postgresql/data/data3/reclamos.csv'
+    DELIMITER ','
+    CSV HEADER;
+
 --Select * From Venta Order By ImporteTotal desc;
 --Query 1
 SELECT * FROM (
